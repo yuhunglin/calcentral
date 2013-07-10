@@ -25,7 +25,7 @@ bundle install --deployment
 
 # Rebuild static assets (HTML, JS, etc.) after update.
 echo "`date`: Rebuilding static assets..." | $LOGIT
-bundle exec rake assets:precompile
+bundle exec rake assets:precompile APPLICATION_LAYER=$APPLICATION_LAYER
 
 # Stamp version number
 git log --pretty=format:'%H' -n 1 > versions/git.txt

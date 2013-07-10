@@ -3,7 +3,7 @@ logger:
 application:
   # Set if running behind Apache/Nginx + https
   protocol: "https://"
-  layer: "production"
+  layer: <%= ENV['APPLICATION_LAYER'] || 'production' %>
 campusdb:
   adapter: jdbc
   driver: oracle.jdbc.OracleDriver

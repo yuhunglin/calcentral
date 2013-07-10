@@ -43,7 +43,18 @@ Calcentral::Application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  # config.action_controller.asset_host = "http://assets.example.com"
+  config.action_controller.asset_host = Proc.new { |source|
+    suffix = ""
+    case Settings.application.layer
+      when "development"
+        suffix = "-dev"
+      when "qa"
+        suffix = "-qa"
+      when "faux"
+        suffix = "-faux"
+    end
+    "https://calcentral#{suffix}-assets#{Digest::MD5.hexdigest(source).to_i(16) % 3 + 1}.berkeley.edu"
+  }
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
