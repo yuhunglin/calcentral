@@ -31,9 +31,10 @@ describe "MyActivities" do
     BearfactsRegblocksProxy.stub(:new).and_return(oski_bearfacts_proxy)
     oski_activities = MyActivities.new("61889").get_feed
     oski_activities[:activities].empty?.should be_false
+    valid_offices = RegBlockCodeTranslator.send(:init_office_translation_hash).values
     oski_activities[:activities].each do |act|
       act[:emitter].should == "BearFacts"
-      act[:source].should_not == "Bearfacts"
+      valid_offices.include?(act[:source]).should be_true
       @documented_types.include?(act[:type]).should be_true
     end
   end
