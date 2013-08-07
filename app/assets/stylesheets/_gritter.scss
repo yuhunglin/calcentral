@@ -1,0 +1,26 @@
+.gritter-notice-wrapper {
+  position:fixed;
+  top:45px;
+  right:20px;
+  width:250px;
+  z-index:9999;
+
+  /** TODO: remove after done */
+  //background-color: white;
+  //height: 300px;
+
+  @media only screen and (max-width: 767px) {
+    top: 20px;
+    left: 20px;
+    width: auto;
+  }
+}
+
+.gritter-item-wrapper {
+  position:relative;
+  margin:0 0 10px 0;
+
+  background-color: $cc-color-button;
+  border:2px solid $cc-color-button-hover;
+}
+

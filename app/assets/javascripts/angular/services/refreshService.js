@@ -2,10 +2,11 @@
 
   'use strict';
 
-  angular.module('calcentral.services').service('refreshService', ['$http', function($http) {
+  angular.module('calcentral.services').service('refreshService', ['$http', '$timeout', function($http, $timeout) {
 
     var events = {
-      refreshed: 0
+      refreshed: 0,
+      inProgress: false
     };
 
     /**
@@ -22,8 +23,13 @@
 
       // This success is only going to happen when we get a 2xx back
       // We won't get a 2xx back when the refresh is cached
+      events.inProgress = true;
       $http.get('/api/my/refresh').success(function() {
         events.refreshed++;
+        $timeout(function () {
+          events.inProgress = false;
+        }, 5000);
+
       });
     };
 

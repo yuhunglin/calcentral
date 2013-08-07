@@ -37,7 +37,12 @@
   data-ng-class="{'cc-page-splash':(_controller_name=='SplashController'),'cc-offcanvas-show':(off_canvas_menu._show)}"
   data-ng-click="api.popover.closeAll()"
   data-ng-show="api.user.events.isLoaded">
-
+  <div class="gritter-notice-wrapper" data-ng-controller="GritterController">
+    <div class="gritter-item-wrapper" data-ng-show="inProgress">
+      Loading new data
+      Please wait until complete
+    </div>
+  </div>
   <%= yield %>
 </body>
 </html>
