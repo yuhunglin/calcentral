@@ -182,6 +182,8 @@ class CampusData < OracleDatabase
           and trim(t.dept_cd) = c.dept_name
           and trim(t.course_num) = c.catalog_id )
       where r.student_ldap_uid = #{connection.quote(person_id)}
+        and r.term_yr = #{connection.quote(Settings.academic_terms.student.term_yr || "2013")}
+        and r.term_cd = #{connection.quote(Settings.academic_terms.student.term_cd || "D")}
       order by r.term_yr desc, r.term_cd desc, c.dept_name,
         c.catalog_root, c.catalog_prefix nulls first, c.catalog_suffix_1 nulls first, c.catalog_suffix_2 nulls first,
         c.primary_secondary_cd, c.instruction_format, c.section_num
@@ -201,6 +203,8 @@ class CampusData < OracleDatabase
       from bspace_course_instructor_vw i
       join bspace_course_info_vw c on c.term_yr = i.term_yr and c.term_cd = i.term_cd and c.course_cntl_num = i.course_cntl_num
       where i.instructor_ldap_uid = #{connection.quote(person_id)}
+        and i.term_yr = #{connection.quote(Settings.academic_terms.instructor.term_yr || "2013")}
+        and i.term_cd = #{connection.quote(Settings.academic_terms.instructor.term_cd || "D")}
       order by c.term_yr desc, c.term_cd desc, c.dept_name,
         c.catalog_root, c.catalog_prefix nulls first, c.catalog_suffix_1 nulls first, c.catalog_suffix_2 nulls first,
         c.primary_secondary_cd, c.instruction_format, c.section_num

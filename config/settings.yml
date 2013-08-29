@@ -171,6 +171,15 @@ user_whitelist:
     }
   ]
 
+# Used for campus_data get_enrolled_sections, get_instructing_sections
+academic_terms:
+  student:
+    term_yr: "2013"
+    term_cd: "D"
+  instructor:
+    term_yr: "2013"
+    term_cd: "D"
+
 # feature toggles. If a feature's key is false OR nil, it's disabled.
 features:
   live_campus_links_data: false
