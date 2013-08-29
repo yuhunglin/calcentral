@@ -40,10 +40,12 @@ describe CampusUserCoursesProxy do
     client = CampusUserCoursesProxy.new({user_id: '300939'})
     courses = client.get_all_campus_courses
     courses.empty?.should be_false
-    courses["2012-B"].length.should == 2
-    courses["2012-B"].each do |course|
-      course[:grade].blank?.should be_false
-      course[:transcript_unit].blank?.should be_false
+    if Settings.academic_terms.multiple_terms
+      courses["2012-B"].length.should == 2
+      courses["2012-B"].each do |course|
+        course[:grade].blank?.should be_false
+        course[:transcript_unit].blank?.should be_false
+      end
     end
     courses["2013-D"].length.should == 2
     courses["2013-D"].each do |course|

@@ -173,6 +173,7 @@ user_whitelist:
 
 # Used for campus_data get_enrolled_sections, get_instructing_sections
 academic_terms:
+  multiple_terms: false
   student:
     term_yr: "2013"
     term_cd: "D"

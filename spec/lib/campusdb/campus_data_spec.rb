@@ -100,17 +100,28 @@ describe CampusData do
     sections = CampusData.get_enrolled_sections('300939')
     sections.should_not be_nil
     if CampusData.test_data?
-      sections.length.should == 6
-      sections[0]["grade"].should be_nil
-      sections[4]["grade"].should == "B "
-      sections[5]["grade"].should == "C+"
+      if Settings.academic_terms.multiple_terms
+        sections.length.should == 6
+        sections[0]["grade"].should be_nil
+        sections[4]["grade"].should == "B "
+        sections[5]["grade"].should == "C+"
+      else
+        sections.length.should == 3
+        sections[0]["grade"].should be_nil
+        sections[1]["grade"].should be_nil
+        sections[2]["grade"].should be_nil
+      end
     end
   end
 
   it "should find where a person is teaching" do
     sections = CampusData.get_instructing_sections('192517')
     sections.should_not be_nil
-    sections.length.should == 5 if CampusData.test_data?
+    if CampusData.test_data? && Settings.academic_terms.multiple_terms
+      sections.length.should == 5
+    else
+      sections.length.should == 3
+    end
   end
 
   it "should check whether the db is alive" do
